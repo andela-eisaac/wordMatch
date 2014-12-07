@@ -8,6 +8,10 @@ var wordMatch = {
     console.log(this.word);
     this.definition();
     this.thesaurus();
+    if (this.nounConfirm == true) {
+      this.pictures();
+      console.log("good to go");
+    } 
   },
 
   returnWord: function () {
@@ -47,12 +51,11 @@ var wordMatch = {
   thesaurusCallback: function (response) {
     console.log(response);
     thesaurusHTML = '<ul>';
-    var partNames = Object.keys(response);
+    partNames = Object.keys(response);
     console.log(partNames); 
     thesaurusHTML = '<ul>';
     $.each(response, function (i, partOfSpeech) {
       if (partOfSpeech.hasOwnProperty('syn')) {
-        console.log('yes');
         thesaurusHTML += '<li>';
         thesaurusHTML += '<p>';
         thesaurusHTML += '<span>';
@@ -64,7 +67,6 @@ var wordMatch = {
         thesaurusHTML += '</p></li>';
       }
       if (partOfSpeech.hasOwnProperty('ant')) {
-        console.log('no');
         thesaurusHTML += '<li>';
         thesaurusHTML += '<p>';
         thesaurusHTML += '<span>';
@@ -78,40 +80,25 @@ var wordMatch = {
       thesaurusHTML += '</ul>';
       $('.thes').html(thesaurusHTML);
     });
-    // for (var partNames in response ) {
-    //   if (response.hasOwnProperty(partNames)) {
-    //     console.log(partNames);
-    //     for (var syn in partNames) {
-    //       if (partNames.hasOwnProperty(syn)) {
-    //         console.log(Array.isArray(syn));
-    //       }
-    //     }
-    //   }
-    // }
-    // $.each (response, function (i, partsOfSpeech) {
-    //   for (var syn in partsOfSpeech) {
-    //     if (partsOfSpeech.hasOwnProperty(syn)) {
-    //       console.log(partsOfSpeech.syn);
-    //       thesaurusHTML += '<li>';
-    //       thesaurusHTML += '<p>';
-    //       thesaurusHTML += '<span>';
-    //       thesaurusHTML += Object.keys(response)[0] + ": ";
-    //       thesaurusHTML += '</span>';
-    //       for (var i = 0; i < partsOfSpeech.syn.length; i++) {
-    //         thesaurusHTML += partsOfSpeech.syn[i] + ", ";
-    //       }
-    //       thesaurusHTML += '</p></li>';
-    //     }
-    //   }
+  },
 
-    //   for (var ant in partsOfSpeech) {
-    //     if (partsOfSpeech.hasOwnProperty(ant)) {
-    //       console.log(partsOfSpeech.ant);
-    //     }
-    //   }
-    // });
-    // thesaurusHTML += '</ul>';
-    // $('.thes').html(thesaurusHTML);
+  nounConfirm: function (response) {
+    if (partNames[0] == 'noun') {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  imagesUrl: "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+
+  imagesData: {
+    tags: this.word,
+    format: "json"
+  },
+
+  imagesCallback: function (response) {
+    console.log(response);
   },
 
   //getting word definition
@@ -124,6 +111,11 @@ var wordMatch = {
   thesaurus: function () {
     this.returnThesaurusUrl();
     $.getJSON(this.thesaurusUrl, this.thesaurusCallback);
+  },
+
+  //getting image
+  pictures: function () {
+    $.getJSON(this.imagesUrl, this.imagesData, this.imagesCallback);
   }
 };
 
