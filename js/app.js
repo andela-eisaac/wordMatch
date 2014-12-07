@@ -47,30 +47,71 @@ var wordMatch = {
   thesaurusCallback: function (response) {
     console.log(response);
     thesaurusHTML = '<ul>';
-    $.each (response, function (i, partsOfSpeech) {
-      for (var syn in partsOfSpeech) {
-        if (partsOfSpeech.hasOwnProperty(syn)) {
-          console.log(partsOfSpeech.syn);
-          thesaurusHTML += '<li>';
-          thesaurusHTML += '<p>';
-          thesaurusHTML += '<span>';
-          thesaurusHTML += response.partsOfSpeech + ": ";
-          thesaurusHTML += '</span>';
-          for (var i = 0; i < partsOfSpeech.syn.length; i++) {
-            thesaurusHTML += partsOfSpeech.syn[i] + ", ";
-          }
-          thesaurusHTML += '</p></li>';
+    var partNames = Object.keys(response);
+    console.log(partNames); 
+    thesaurusHTML = '<ul>';
+    $.each(response, function (i, partOfSpeech) {
+      if (partOfSpeech.hasOwnProperty('syn')) {
+        console.log('yes');
+        thesaurusHTML += '<li>';
+        thesaurusHTML += '<p>';
+        thesaurusHTML += '<span>';
+        thesaurusHTML += 'Synonym: ';
+        thesaurusHTML += '</span>';
+        for (var i = 0; i < partOfSpeech.syn.length; i++) {
+          thesaurusHTML += partOfSpeech.syn[i] + ', ';
         }
+        thesaurusHTML += '</p></li>';
       }
-
-      for (var ant in partsOfSpeech) {
-        if (partsOfSpeech.hasOwnProperty(ant)) {
-          console.log(partsOfSpeech.ant);
+      if (partOfSpeech.hasOwnProperty('ant')) {
+        console.log('no');
+        thesaurusHTML += '<li>';
+        thesaurusHTML += '<p>';
+        thesaurusHTML += '<span>';
+        thesaurusHTML += 'Antonym: ';
+        thesaurusHTML += '</span>';
+        for (var i = 0; i < partOfSpeech.ant.length; i++) {
+          thesaurusHTML += partOfSpeech.ant[i] + ', ';
         }
+        thesaurusHTML += '</p></li>';
       }
+      thesaurusHTML += '</ul>';
+      $('.thes').html(thesaurusHTML);
     });
-    thesaurusHTML += '</ul>';
-    $('.thes').html(thesaurusHTML);
+    // for (var partNames in response ) {
+    //   if (response.hasOwnProperty(partNames)) {
+    //     console.log(partNames);
+    //     for (var syn in partNames) {
+    //       if (partNames.hasOwnProperty(syn)) {
+    //         console.log(Array.isArray(syn));
+    //       }
+    //     }
+    //   }
+    // }
+    // $.each (response, function (i, partsOfSpeech) {
+    //   for (var syn in partsOfSpeech) {
+    //     if (partsOfSpeech.hasOwnProperty(syn)) {
+    //       console.log(partsOfSpeech.syn);
+    //       thesaurusHTML += '<li>';
+    //       thesaurusHTML += '<p>';
+    //       thesaurusHTML += '<span>';
+    //       thesaurusHTML += Object.keys(response)[0] + ": ";
+    //       thesaurusHTML += '</span>';
+    //       for (var i = 0; i < partsOfSpeech.syn.length; i++) {
+    //         thesaurusHTML += partsOfSpeech.syn[i] + ", ";
+    //       }
+    //       thesaurusHTML += '</p></li>';
+    //     }
+    //   }
+
+    //   for (var ant in partsOfSpeech) {
+    //     if (partsOfSpeech.hasOwnProperty(ant)) {
+    //       console.log(partsOfSpeech.ant);
+    //     }
+    //   }
+    // });
+    // thesaurusHTML += '</ul>';
+    // $('.thes').html(thesaurusHTML);
   },
 
   //getting word definition
