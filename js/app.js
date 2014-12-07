@@ -4,13 +4,11 @@ var wordMatch = {
 
   searchClick: function (e) {
     e.preventDefault();
-    this.word = $('input').val();
+    this.word = $('input').val().toLowerCase();
     console.log(this.word);
-    this.definition();
-    this.thesaurus();
-    if (this.nounConfirm == true) {
-      this.pictures();
-      console.log("good to go");
+    if (this.validator()) {
+      this.definition();
+      this.thesaurus();
     } 
   },
 
@@ -82,14 +80,6 @@ var wordMatch = {
     });
   },
 
-  nounConfirm: function (response) {
-    if (partNames[0] == 'noun') {
-      return true;
-    } else {
-      return false;
-    }
-  },
-
   imagesUrl: "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
 
   imagesData: {
@@ -99,6 +89,10 @@ var wordMatch = {
 
   imagesCallback: function (response) {
     console.log(response);
+    picturesHTML = '<a href = "' + response.items[0].link + '">';
+    picturesHTML += '<img src = "' + response.items[0].link + '">';
+    picturesHTML += '</a>';
+    $('.image').html(picturesHTML);
   },
 
   //getting word definition
@@ -113,9 +107,13 @@ var wordMatch = {
     $.getJSON(this.thesaurusUrl, this.thesaurusCallback);
   },
 
-  //getting image
-  pictures: function () {
-    $.getJSON(this.imagesUrl, this.imagesData, this.imagesCallback);
+  //validator function
+  validator: function () {
+    if (this.word.trim() != "") {
+      return true;
+    } else {
+      alert("please make a valid entry");
+    }
   }
 };
 

@@ -155,13 +155,6 @@ button {
   margin-left: 3%;
 }
 
-.image {
-  width: 50%;
-  border: thin solid;
-  margin: 0 auto;
-  height: 300px;
-}
-
 h2,
 h3,
 h4 {
@@ -173,9 +166,11 @@ h4 {
 }
 
 .thes span {
-  font-family: sans-serif;
+  font-family: 'Coming Soon', sans-serif;
+  font-size: 1em;
   font-weight: 200;
   text-decoration: none;
+  color: #ff0000;
 }
 
 .definition li,
@@ -185,50 +180,7 @@ h4 {
 
 .definition p,
 .thesaurus p {
-  font-family: sans-serif;
+  font-family: 'Coming Soon', sans-serif;
+  font-weight: 300;
+  word-spacing: 3px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
