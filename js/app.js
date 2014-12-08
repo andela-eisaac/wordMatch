@@ -9,7 +9,7 @@ var wordMatch = {
     if (this.validator()) {
       this.definition();
       this.thesaurus();
-    } 
+    }
   },
 
   returnWord: function () {
@@ -35,7 +35,7 @@ var wordMatch = {
 
   definitionCallback: function (response) {
     console.log(response);
-    definitionHTML = '<ul>';
+    var definitionHTML = '<ul>';
     $.each (response, function (i, definition) {
       definitionHTML += '<li>';
       definitionHTML += '<p>';
@@ -51,7 +51,7 @@ var wordMatch = {
     thesaurusHTML = '<ul>';
     partNames = Object.keys(response);
     console.log(partNames); 
-    thesaurusHTML = '<ul>';
+    var thesaurusHTML = '<ul>';
     $.each(response, function (i, partOfSpeech) {
       if (partOfSpeech.hasOwnProperty('syn')) {
         thesaurusHTML += '<li>';
@@ -64,6 +64,7 @@ var wordMatch = {
         }
         thesaurusHTML += '</p></li>';
       }
+
       if (partOfSpeech.hasOwnProperty('ant')) {
         thesaurusHTML += '<li>';
         thesaurusHTML += '<p>';
@@ -73,11 +74,17 @@ var wordMatch = {
         for (var i = 0; i < partOfSpeech.ant.length; i++) {
           thesaurusHTML += partOfSpeech.ant[i] + ', ';
         }
-        thesaurusHTML += '</p></li>';
+        thesaurusHTML += '<br></p></li>';
       }
-      thesaurusHTML += '</ul>';
-      $('.thes').html(thesaurusHTML);
-    });
+    }); 
+
+    if (response.hasOwnProperty('noun')) {
+      thesaurusHTML += wordMatch.nounDef();
+      console.log("it is a noun");
+    } 
+
+    thesaurusHTML += '</ul>';
+    $('.thes').html(thesaurusHTML);
   },
 
   imagesUrl: "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
@@ -114,6 +121,19 @@ var wordMatch = {
     } else {
       alert("please make a valid entry");
     }
+  },
+
+  nounDef: function () {
+    var nounHTML = '<li><p class="define">';
+    nounHTML += '"' + this.word + '"' + " is used as a Noun";
+    nounHTML += '<br>';
+    nounHTML += "A noun is the name of any person, animal place, or thing";
+    nounHTML += '<br>';
+    nounHTML += "For more on Nouns, ";
+    nounHTML += '<a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/help/libry/speech.htm#noun">';
+    nounHTML += "click here";
+    nounHTML += '</a></p></li>';
+    return nounHTML;
   }
 };
 

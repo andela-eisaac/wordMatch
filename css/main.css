@@ -50,6 +50,12 @@ table {
   border-spacing: 0;
 }
 
+
+
+/*******************************
+BODY
+*******************************/
+
 html {
   background: black;
 }
@@ -62,7 +68,10 @@ body {
   border: thin solid;
 }
 
-
+html {
+  background: url('../img/background.jpg') no-repeat;
+  background-size: 100%;
+}
 
 /*******************************
 HEADER
@@ -173,9 +182,26 @@ h4 {
   color: #ff0000;
 }
 
+.define {
+  margin-top: 40px;
+}
+
+.define a {
+  font-family: 'Indie Flower', sans-serif;
+  font-weight: 200;
+  text-decoration: none;
+  color: red;
+  font-size: 1.25em;
+}
+
+.define a:hover {
+  text-decoration: underline;
+}
+
 .definition li,
 .thesaurus li {
   list-style: none;
+  margin-top: 10px;
 }
 
 .definition p,
@@ -183,4 +209,5 @@ h4 {
   font-family: 'Coming Soon', sans-serif;
   font-weight: 300;
   word-spacing: 3px;
+  line-height: 1.25em;
 }
