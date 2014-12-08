@@ -1,15 +1,24 @@
 var wordMatch = {
   word: "",
   definitionUrl: "",
+  userInput: $('input').val("Enter word here"),
+
+  inputClick: function () {
+    this.userInput.click(function () {
+      wordMatch.userInput.val("");
+    });
+  },
 
   searchClick: function (e) {
     e.preventDefault();
-    this.word = $('input').val().toLowerCase();
+    this.word = wordMatch.userInput.bind(wordMatch).val().toLowerCase();
     console.log(this.word);
+    $(".thes").html("");
+
     if (this.validator()) {
       this.definition();
       this.thesaurus();
-    }
+    }  
   },
 
   returnWord: function () {
@@ -80,8 +89,19 @@ var wordMatch = {
 
     if (response.hasOwnProperty('noun')) {
       thesaurusHTML += wordMatch.nounDef();
-      console.log("it is a noun");
-    } 
+    }
+
+    if (response.hasOwnProperty('verb')) {
+      thesaurusHTML += wordMatch.verbDef();
+    }
+
+    if (response.hasOwnProperty('adjective')) {
+      thesaurusHTML += wordMatch.adjectiveDef();
+    }
+
+    if (response.hasOwnProperty('adverb')) {
+      thesaurusHTML += wordMatch.adverbDef();
+    }
 
     thesaurusHTML += '</ul>';
     $('.thes').html(thesaurusHTML);
@@ -105,13 +125,17 @@ var wordMatch = {
   //getting word definition
   definition: function () {
     this.returnWord();
-    $.getJSON(this.definitionUrl, this.definitionData, this.definitionCallback);
+    $.getJSON(this.definitionUrl, this.definitionData, this.definitionCallback).fail(function (jqXHR) {
+      alert("word doesn't exist in database");
+    });
   },
 
   //getting thesaurus
   thesaurus: function () {
     this.returnThesaurusUrl();
-    $.getJSON(this.thesaurusUrl, this.thesaurusCallback);
+    $.getJSON(this.thesaurusUrl, this.thesaurusCallback).fail(function (jqXHR) {
+      alert("No thesaurus result found");
+    });
   },
 
   //validator function
@@ -127,14 +151,54 @@ var wordMatch = {
     var nounHTML = '<li><p class="define">';
     nounHTML += '"' + this.word + '"' + " is used as a Noun";
     nounHTML += '<br>';
-    nounHTML += "A noun is the name of any person, animal place, or thing";
+    nounHTML += "A noun is a word used to name something: a person/animal";
     nounHTML += '<br>';
     nounHTML += "For more on Nouns, ";
     nounHTML += '<a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/help/libry/speech.htm#noun">';
     nounHTML += "click here";
     nounHTML += '</a></p></li>';
     return nounHTML;
+  },
+
+  verbDef: function () {
+    var verbHTML = '<li><p class="define">';
+    verbHTML += '"' + this.word + '"' + " is used as a Verb";
+    verbHTML += '<br>';
+    verbHTML += "Verbs generally express action or a state of being";
+    verbHTML += '<br>';
+    verbHTML += "For more on Verbs, ";
+    verbHTML += '<a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/help/libry/speech.htm#verb">';
+    verbHTML += "click here";
+    verbHTML += '</a></p></li>';
+    return verbHTML;
+  },
+
+  adjectiveDef: function () {
+    var adjectiveHTML = '<li><p class="define">';
+    adjectiveHTML += '"' + this.word + '"' + " is used as an Adjective";
+    adjectiveHTML += '<br>';
+    adjectiveHTML += "An adjective modifies (describes) a noun or pronoun.";
+    adjectiveHTML += '<br>';
+    adjectiveHTML += "For more on Adjectives, ";
+    adjectiveHTML += '<a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/help/libry/speech.htm#adjective">';
+    adjectiveHTML += "click here";
+    adjectiveHTML += '</a></p></li>';
+    return adjectiveHTML;
+  },
+
+  adverbDef: function () {
+    var adverbHTML = '<li><p class="define">';
+    adverbHTML += '"' + this.word + '"' + " is used as an Adverb";
+    adverbHTML += '<br>';
+    adverbHTML += "An adverb is a word that modifies an action verb, an adjective or another adverb.";
+    adverbHTML += '<br>';
+    adverbHTML += "For more on Adverbs, ";
+    adverbHTML += '<a href="http://www.edb.utexas.edu/minliu/pbl/ESOL/help/libry/speech.htm#adverb">';
+    adverbHTML += "click here";
+    adverbHTML += '</a></p></li>';
+    return adverbHTML;
   }
 };
 
+wordMatch.inputClick();
 wordMatch.action();
