@@ -197,8 +197,17 @@ var wordMatch = {
     adverbHTML += "click here";
     adverbHTML += '</a></p></li>';
     return adverbHTML;
+  },
+
+  aboutClick: function () {
+    $('#about').hide();
+    $('.about').click(function (e) {
+      e.preventDefault;
+      $('#about').show();
+    });
   }
 };
 
+wordMatch.aboutClick();
 wordMatch.inputClick();
 wordMatch.action();

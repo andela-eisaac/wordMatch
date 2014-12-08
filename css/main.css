@@ -222,3 +222,11 @@ h4 {
   word-spacing: 3px;
   line-height: 1.25em;
 }
+
+#about {
+  text-align: center;
+  font-family: 'Coming Soon', sans-serif;
+  font-size: 1em;
+  line-height: 1em;
+  padding: 5px;
+}
