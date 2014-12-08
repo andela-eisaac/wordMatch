@@ -226,7 +226,8 @@ h4 {
 #about {
   text-align: center;
   font-family: 'Coming Soon', sans-serif;
-  font-size: 1em;
+  font-size: .7em;
   line-height: 1em;
   padding: 5px;
+  word-spacing: 5px;
 }

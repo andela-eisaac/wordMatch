@@ -126,7 +126,7 @@ var wordMatch = {
   definition: function () {
     this.returnWord();
     $.getJSON(this.definitionUrl, this.definitionData, this.definitionCallback).fail(function (jqXHR) {
-      alert("word doesn't exist in database");
+      alert("no definition results for: " + wordMatch.word);
     });
   },
 
@@ -134,7 +134,7 @@ var wordMatch = {
   thesaurus: function () {
     this.returnThesaurusUrl();
     $.getJSON(this.thesaurusUrl, this.thesaurusCallback).fail(function (jqXHR) {
-      alert("No thesaurus result found");
+      alert("No thesaurus result found for: " + wordMatch.word);
     });
   },
 
