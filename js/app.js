@@ -14,6 +14,9 @@ var wordMatch = {
     this.word = wordMatch.userInput.bind(wordMatch).val().toLowerCase();
     console.log(this.word);
     $(".thes").html("");
+    $(".def").html("");
+    $('.thes').prepend('<img class="loadingDef" src="img/loading.gif" />');
+    $('.def').prepend('<img class="loadingThes" src="img/loading.gif" />');
 
     if (this.validator()) {
       this.definition();
@@ -54,7 +57,8 @@ var wordMatch = {
     definitionHTML += '</ul>';
     $('.def').html(definitionHTML);
     if (definitionHTML === '<ul></ul>') {
-      alert('no match found for ' + wordMatch.word + ' in dictionary');
+      alert('no match found for: ' + wordMatch.word + ' in dictionary');
+      $('.loadingDef').hide();
     }
   },
 
@@ -122,6 +126,7 @@ var wordMatch = {
     this.returnThesaurusUrl();
     $.getJSON(this.thesaurusUrl, this.thesaurusCallback).fail(function (jqXHR) {
       alert("No thesaurus result found for: " + wordMatch.word);
+      $('.loadingThes').hide();
     });
   },
 
@@ -131,6 +136,8 @@ var wordMatch = {
       return true;
     } else {
       alert("please make a valid entry");
+      $('.loadingDef').hide();
+      $('.loadingThes').hide();
     }
   },
 
