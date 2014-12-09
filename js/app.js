@@ -110,21 +110,7 @@ var wordMatch = {
     $('.thes').html(thesaurusHTML);
   },
 
-  imagesUrl: "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-
-  imagesData: {
-    tags: this.word,
-    format: "json"
-  },
-
-  imagesCallback: function (response) {
-    console.log(response);
-    picturesHTML = '<a href = "' + response.items[0].link + '">';
-    picturesHTML += '<img src = "' + response.items[0].link + '">';
-    picturesHTML += '</a>';
-    $('.image').html(picturesHTML);
-  },
-
+  
   //getting word definition
   definition: function () {
     this.returnWord();
