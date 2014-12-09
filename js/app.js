@@ -15,8 +15,8 @@ var wordMatch = {
     console.log(this.word);
     $(".thes").html("");
     $(".def").html("");
-    $('.thes').prepend('<img class="loadingDef" src="img/loading.gif" />');
-    $('.def').prepend('<img class="loadingThes" src="img/loading.gif" />');
+    $('.thes').prepend('<img class="loadingThes" src="img/loading.gif" />');
+    $('.def').prepend('<img class="loadingDef" src="img/loading.gif" />');
 
     if (this.validator()) {
       this.definition();
