@@ -53,6 +53,9 @@ var wordMatch = {
     });
     definitionHTML += '</ul>';
     $('.def').html(definitionHTML);
+    if (definitionHTML === '<ul></ul>') {
+      alert('no match found for ' + wordMatch.word + ' in dictionary');
+    }
   },
 
   thesaurusCallback: function (response) {
