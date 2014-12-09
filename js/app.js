@@ -22,12 +22,12 @@ var wordMatch = {
   },
 
   returnWord: function () {
-    this.definitionUrl = "http://api.wordnik.com:80/v4/word.json/" + this.word + "/definitions/";
+    this.definitionUrl = "http://api.wordnik.com:80/v4/word.json/" + this.word.trim() + "/definitions/";
     return this.definitionUrl;
   },
 
   returnThesaurusUrl: function () {
-    this.thesaurusUrl = "http://words.bighugelabs.com/api/2/f5c79d25e5e8f8723ee62b695a8a7987/" + this.word + "/json";
+    this.thesaurusUrl = "http://words.bighugelabs.com/api/2/f5c79d25e5e8f8723ee62b695a8a7987/" + this.word.trim() + "/json";
     return this.thesaurusUrl;
   },
 
@@ -125,9 +125,7 @@ var wordMatch = {
   //getting word definition
   definition: function () {
     this.returnWord();
-    $.getJSON(this.definitionUrl, this.definitionData, this.definitionCallback).fail(function (jqXHR) {
-      alert("no definition results for: " + wordMatch.word);
-    });
+    $.getJSON(this.definitionUrl, this.definitionData, this.definitionCallback);
   },
 
   //getting thesaurus
