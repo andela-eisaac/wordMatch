@@ -194,7 +194,15 @@ var wordMatch = {
   },
 
   aboutClick: function () {
-    $('#about').hide();
+    aboutHTML = '<p>';
+    aboutHTML += 'WordMatch is an API test application.<br>';
+    aboutHTML += 'It helps users define words, as well as provide antonyms and synonyms<br>';
+    aboutHTML += "What's more? It even defines the part of speech the word belongs to";
+    aboutHTML += '<br>and even redirects you other webpages, if you need more info on those words';
+    aboutHTML += '</p>';
+
+    $('#about').html(aboutHTML).hide();
+
     $('.about').click(function (e) {
       e.preventDefault;
       $('#about').show();
